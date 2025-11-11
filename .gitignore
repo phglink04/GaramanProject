@@ -89,3 +89,7 @@ typings/
 
 # Serverless directories
 .serverless
+
+ScenarioDiagram_v3_StatsSupplier.md
+SequenceDiagram_StatsSupplier.md
+
