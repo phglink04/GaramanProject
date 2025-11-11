@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Garaman - Giao Diện Chính Nhân Viên Quản Lý</title>
+    <title>Garaman - Xem Thống Kê</title>
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,6 @@
             padding: 0;
         }
 
-        /* General styling for the body */
         body {
             display: flex;
             justify-content: center;
@@ -21,12 +20,11 @@
             min-height: 100vh;
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FAF3E0; /* Light, warm background color */
+            background-color: #FAF3E0;
             padding: 20px;
             line-height: 1.6;
         }
 
-        /* Container styling */
         .container {
             background: #ffffff;
             border-radius: 12px;
@@ -37,16 +35,14 @@
             text-align: center;
         }
 
-        /* Header styling */
         h1 {
-            color: #BF360C; /* Rich, warm color */
+            color: #BF360C;
             font-size: 28px;
             margin-bottom: 30px;
             font-weight: bold;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* Button styling */
         .btn {
             display: block;
             padding: 15px 20px;
@@ -66,7 +62,6 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Hover effect for buttons */
         .btn:hover {
             background-color: #BF360C;
             transform: translateY(-2px);
@@ -78,13 +73,11 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* Separate styling for back button */
         .btn-back {
-            background-color: #8D6E63; /* Muted brown color */
+            background-color: #8D6E63;
             margin-top: 20px;
         }
 
-        /* Hover effect for back button */
         .btn-back:hover {
             background-color: #6D4C41;
         }
@@ -110,24 +103,18 @@
 </head>
 <body>
 <div class="container">
-    <!-- Page title -->
-    <h1>🏢 Giao Diện Chính Nhân Viên Quản Lý</h1>
+    <h1>📊 Xem Thống Kê</h1>
 
-    <!-- Buttons for management functions -->
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        📊 Xem Thống Kê
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectDateStatsUI.jsp" class="btn">
+        📈 Xem Thống Kê Nhà Cung Cấp Theo Lượng Nhập
     </a>
 
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        🛠️ Quản Lý Dịch Vụ
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectDateStatsUI.jsp" class="btn">
+        👥 Xem Thống Kê Khách Hàng
     </a>
 
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        🔧 Quản Lý Phụ Tùng
-    </a>
-
-    <a href="${pageContext.request.contextPath}/Login.jsp" class="btn btn-back">
-        🚪 Đăng xuất
+    <a href="${pageContext.request.contextPath}/ManagerView/ManagerMainUI.jsp" class="btn btn-back">
+        ◀️ Quay Lại
     </a>
 </div>
 </body>

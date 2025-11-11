@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DAO {
     private static final String JDBC_URL =
-            "jdbc:mysql://localhost:3306/garamandb?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+            "jdbc:mysql://localhost:3306/garamandb?useUnicode=true&characterEncoding=UTF-8&SSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
     private static final String JDBC_USER = "root";
     private static final String JDBC_PASS = "123456";
 
@@ -30,7 +30,7 @@ public class DAO {
         this.con = con;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         DAO a = new DAO();
     }
 }

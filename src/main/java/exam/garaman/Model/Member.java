@@ -6,6 +6,7 @@ public class Member {
     private static int id;
     private String username;
     private String password;
+    private String name;
     private Date dob;
     private String address;
     private String phoneNum;
@@ -20,6 +21,16 @@ public class Member {
         this.phoneNum = phoneNum;
     }
 
+//    public Member(int id, String username, String password, String name, dob, String address, String phoneNum) {
+//        this.id = id;
+//        this.username = username;
+//        this.password = password;
+//        this.name = name;
+//        this.dob = dob;
+//        this.address = address;
+//        this.phoneNum = phoneNum;
+//    }
+
     // Getters and setters
     public static int getId() { return id; }
     public void setId(int id) { this.id = id;}
@@ -33,6 +44,8 @@ public class Member {
     public void setAddress(String address) { this.address = address; }
     public String getPhoneNum() { return phoneNum; }
     public void setPhoneNum(String phoneNum) { this.phoneNum = phoneNum; }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
     @Override
     public String toString() {

@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -22,7 +23,6 @@ public class BookAppointmentServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 2. Chỉ cần chuyển hướng đến trang JSP để hiển thị
         request.getRequestDispatcher("CustomerView/BookAppointmentUI.jsp").forward(request, response);
     }
     @Override
@@ -32,23 +32,31 @@ public class BookAppointmentServlet extends HttpServlet {
         // Đặt UTF-8 để nhận tiếng Việt
         request.setCharacterEncoding("UTF-8");
         try {
+            // Lấy customer từ session
+            HttpSession session = request.getSession();
+            Customer customer = (Customer) session.getAttribute("customer");
+
+            if (customer == null) {
+                request.setAttribute("errorMessage", "Vui lòng đăng nhập trước khi đặt lịch.");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                return;
+            }
 
             // 1. Lấy tất cả dữ liệu từ form JSP
             String date = request.getParameter("appointmentDate");
             String time = request.getParameter("appointmentTime");
-            String name = request.getParameter("customerName");
+            String customerName = request.getParameter("customerName");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
 
             // 2. kết hợp ngày và tháng thành Timestamp
-            Timestamp timeA= Timestamp.valueOf(date + " " + time + ":00");
+            Timestamp timeA = Timestamp.valueOf(date + " " + time + ":00");
 
             //3. Tạo đối tượng AppointmentDAO mới
-
             Appointment appointment = new Appointment();
             appointment.setAppointmentTime(timeA);
             appointment.setStatus("Chờ xác nhận");
-            appointment.setTblCustomerid(Customer.getId());
+            appointment.setTblCustomerid(customer.getId());
 
             AppointmentDAO appointmentDAO = new AppointmentDAO();
             boolean result = appointmentDAO.saveAppoint(appointment);
@@ -65,6 +73,6 @@ public class BookAppointmentServlet extends HttpServlet {
             request.setAttribute("errorMessage", "Đã xảy ra lỗi trong quá trình đặt lịch.");
             request.getRequestDispatcher("CustomerView/BookAppointmentUI.jsp").forward(request, response);
         }
-        }
+    }
 
 }

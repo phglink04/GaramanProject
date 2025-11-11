@@ -29,7 +29,7 @@ public class LoginDAO extends DAO {
 
     // Check user is NhanVien or not
     public boolean isStaff(int id) {
-        String sql = "SELECT * FROM tblNhanVien670 WHERE tblThanhVien670id = " + id;
+        String sql = "SELECT * FROM tblStaff WHERE tblMemberid = " + id;
         try {
             CallableStatement cs = con.prepareCall(sql);
             ResultSet rs = cs.executeQuery();
@@ -56,11 +56,11 @@ public class LoginDAO extends DAO {
                 Customer customer = new Customer(
                         rs.getInt("id"),                     // id của khách hàng
                         rs.getString("username"),            // tên đăng nhập
-                        rs.getString("password"),            // mật khẩu
+                        rs.getString("password"),            // mật khẩu/
                         rs.getDate("dob"),              // ngày sinh, kiểu Date
                         rs.getString("address"),              // địa chỉ
-                        rs.getString("phoneNum"),         // số điện thoại
-                        rs.getString("idCustomer")          // mã khách hàng
+                        rs.getString("phoneNumber"),         // số điện thoại
+                        rs.getString("CustomerID")          // mã khách hàng
                 );
                 return customer;
             }

@@ -68,9 +68,11 @@
 %>
 <div class="container">
     <h1>Giao Diện Khách Hàng</h1>
+    <form action="${pageContext.request.contextPath}/appointment" method="get">
+        <button type="submit" class="btn">Tìm Kiếm Dịch Vụ</button>
+    </form>
 
     <form action="${pageContext.request.contextPath}/appointment" method="get">
-        <button type="button" class="btn">Tìm Kiếm Dịch Vụ</button>
         <button type="submit" class="btn">Đặt lịch hẹn</button>
     </form>
 </div>

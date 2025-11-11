@@ -1,5 +1,7 @@
 package exam.garaman.Model;
 
+import java.util.Date;
+
 public class Customer extends Member {
     private String idCustomer;
 
@@ -7,7 +9,7 @@ public class Customer extends Member {
         super();
     }
 
-    public Customer(int id, String username, String password, java.util.Date dob, String address, String phoneNum, String idCustomer) {
+    public Customer(int id, String username, String password, Date dob, String address, String phoneNum, String idCustomer) {
         super(id, username, password, dob, address, phoneNum);
         this.idCustomer = idCustomer;
     }
