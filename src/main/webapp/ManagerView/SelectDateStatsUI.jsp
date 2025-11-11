@@ -123,7 +123,8 @@
 </head>
 <body>
 <div class="container">
-    <h1>CHỌN NGÀY GIỜ</h1>
+    <h1>THỐNG KÊ NCC THEO LƯỢNG HÀNG NHẬP</h1>
+    <h1>Chọn ngày giờ</h1>
 
     <!-- Form gửi đến Servlet -->
     <form action="${pageContext.request.contextPath}/statsSupplier" method="post" onsubmit="return validateDates()">

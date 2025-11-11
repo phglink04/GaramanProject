@@ -35,41 +35,34 @@ public class LoginServlet  extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        try {
-            // 2. Khởi tạo DAO
-            LoginDAO dao = new LoginDAO();
+        // 2. Khởi tạo DAO
+        LoginDAO dao = new LoginDAO();
 
-            // 3. Gọi DAO để kiểm tra thông tin đăng nhập
-            int result = dao.getIDMember(username, password);
+        // 3. Gọi DAO để kiểm tra thông tin đăng nhập
+        int result = dao.getIDMember(username, password);
 
-            // 4. Xử lý kết quả trả về từ DAO
-            if (result != -1) { // Đăng nhập thành công
-                if (dao.isStaff(result)) {
-                    // Là nhân viên -> Chuyển hướng đến trang quản lý
-                    response.sendRedirect("ManagerView/ManagerMainUI.jsp");
-                } else {
-                    // Là khách hàng -> Lấy thông tin và lưu vào session
-                    Customer customer = dao.getCustomer(result);
-                    HttpSession session = request.getSession();
-                    session.setAttribute("customer", customer);
-
-                    // Chuyển hướng đến trang khách hàng
-                    response.sendRedirect("CustomerView/CustomerMainUI.jsp");
-                }
+        // 4. Xử lý kết quả trả về từ DAO
+        if (result != -1) { // Đăng nhập thành công
+            if (dao.isStaff(result)) {
+                // Là nhân viên -> Chuyển hướng đến trang quản lý
+                response.sendRedirect("ManagerView/ManagerMainUI.jsp");
             } else {
-                // 5. Đăng nhập thất bại
-                // Gửi thông báo lỗi về lại trang đăng nhập
-                request.setAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không chính xác!");
+                // Là khách hàng -> Lấy thông tin và lưu vào session
+                Customer customer = dao.getCustomer(result);
+                HttpSession session = request.getSession();
+                session.setAttribute("customer", customer);
 
-                // Forward (chuyển tiếp) yêu cầu trở lại trang JSP để hiển thị lỗi
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
+                // Chuyển hướng đến trang khách hàng
+                response.sendRedirect("CustomerView/CustomerMainUI.jsp");
             }
+        } else {
+            // 5. Đăng nhập thất bại
+            // Gửi thông báo lỗi về lại trang đăng nhập
+            request.setAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không chính xác!");
 
-        } catch (ClassNotFoundException e) {
-            // Xử lý lỗi nếu không tìm thấy Driver CSDL
-            e.printStackTrace();
-            request.setAttribute("errorMessage", "Lỗi hệ thống: Không thể kết nối CSDL.");
+            // Forward (chuyển tiếp) yêu cầu trở lại trang JSP để hiển thị lỗi
             request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
+
     }
 }
