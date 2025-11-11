@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
 
 @WebServlet("/appointment")
 public class BookAppointmentServlet extends HttpServlet {
@@ -22,6 +24,25 @@ public class BookAppointmentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Nếu có param date thì dùng param, nếu không dùng session
+        String dateParam = request.getParameter("appointmentDate");
+        HttpSession session = request.getSession();
+        String dateStr = dateParam != null ? dateParam : (String) session.getAttribute("appointmentDate");
+
+        if (dateStr != null && !dateStr.isEmpty()) {
+            try {
+                Date date = java.sql.Date.valueOf(dateStr);
+                AppointmentDAO dao = new AppointmentDAO();
+                List<String> availableTimes = dao.getEmptyTime(date);
+                request.setAttribute("availableTimes", availableTimes);
+                // Lưu ngày vào session để dùng khi submit
+                session.setAttribute("appointmentDate", dateStr);
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("errorMessage", "Lỗi khi lấy giờ trống: " + e.getMessage());
+            }
+        }
 
         request.getRequestDispatcher("CustomerView/BookAppointmentUI.jsp").forward(request, response);
     }

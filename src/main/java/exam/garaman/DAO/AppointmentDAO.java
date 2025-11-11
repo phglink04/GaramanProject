@@ -9,6 +9,13 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class AppointmentDAO extends DAO {
     public AppointmentDAO() throws ClassNotFoundException {
@@ -62,5 +69,41 @@ public class AppointmentDAO extends DAO {
             e.printStackTrace();
         }
         return false;
+    }
+
+    // Lấy danh sách giờ trống cho một ngày cụ thể
+    // Trả về danh sách chuỗi theo định dạng "HH:mm"
+    public List<String> getEmptyTime(Date date) throws SQLException {
+        // Danh sách khung giờ làm việc (có thể thay đổi nếu cần)
+        List<String> allSlots = Arrays.asList(
+                "08:00","08:30","09:00","09:30","10:00","10:30","11:00","11:30",
+                "12:00","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00"
+        );
+
+        // Lấy các thời điểm đã được đặt trong ngày
+        String sql = "SELECT TIME(appointmentTime) AS t FROM tblAppointment WHERE DATE(appointmentTime) = ?";
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, new java.sql.Date(date.getTime()));
+        ResultSet rs = ps.executeQuery();
+
+        Set<String> booked = new HashSet<>();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        while (rs.next()) {
+            Time t = rs.getTime("t");
+            if (t != null) {
+                String s = sdf.format(new java.util.Date(t.getTime()));
+                booked.add(s);
+            }
+        }
+
+        // Lọc các khung giờ chưa bị đặt
+        List<String> available = new ArrayList<>();
+        for (String slot : allSlots) {
+            if (!booked.contains(slot)) {
+                available.add(slot);
+            }
+        }
+
+        return available;
     }
 }
