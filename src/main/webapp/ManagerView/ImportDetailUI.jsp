@@ -10,58 +10,228 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garaman - Thông Tin Lần Nhập</title>
     <style>
-        /* ... CSS của bạn ... */
-        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #FAF3E0; }
-        .entry-info { font-size: 24px; font-weight: bold; margin-bottom: 20px; color: #BF360C; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: #ffffff; box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2); border-radius: 8px; }
-        th, td { border: 1px solid #dddddd; text-align: left; padding: 12px; }
-        th { background-color: #D84315; color: white; }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        .btn-back { padding: 10px 20px; font-size: 16px; color: #ffffff; background-color: #8D6E63; border: none; border-radius: 6px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 20px; display: inline-block; text-decoration: none; width: 100px; text-align: center; }
-        .btn-back:hover { background-color: #6D4C41; }
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #E3F2FD; /* Light blue background */
+        }
+
+        .entry-info {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1A237E; /* Dark blue for branding */
+        }
+
+        /* Title styling */
+        h1 {
+            color: #1A237E; /* Dark blue for branding */
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        /* Paragraph styling */
+        p {
+            color: #0D47A1; /* Deep blue for text */
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        th, td {
+            border: 1px solid #90CAF9; /* Light blue border */
+            text-align: left;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #1976D2; /* Vibrant blue for header */
+            color: white;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #E3F2FD; /* Light blue for alternate rows */
+        }
+
+        .btn-back {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #42A5F5; /* Lighter blue */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+            display: inline-block;
+            text-decoration: none;
+            width: 100px;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: #1976D2; /* Darker blue on hover */
+        }
+
+        /* Currency formatting */
+        .currency {
+            text-align: right;
+        }
+
+        /* Date info styling */
+        .date-info {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+        }
+
+        /* Supplier info styling */
+        .supplier-info {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #1A237E;
+            text-align: center;
+            font-weight: bold;
+        }
     </style>
+    <script>
+        // Function to format number with comma separators
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount) + ' VND';
+        }
+
+        // Function to format date to dd-mm-yyyy
+        function formatDate(dateString) {
+            if (!dateString || dateString === 'N/A') return dateString;
+
+            // Check if date is already in dd-mm-yyyy format
+            if (dateString.match(/^\d{2}-\d{2}-\d{4}$/)) {
+                return dateString;
+            }
+
+            // Convert yyyy-mm-dd to dd-mm-yyyy
+            if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+                const parts = dateString.split('-');
+                return parts[2] + '-' + parts[1] + '-' + parts[0];
+            }
+
+            return dateString;
+        }
+
+        // Apply formatting when page loads
+        window.onload = function() {
+            // Format currency
+            const currencyCells = document.querySelectorAll('.currency');
+            currencyCells.forEach(function(cell) {
+                const amount = parseInt(cell.textContent);
+                if (!isNaN(amount)) {
+                    cell.textContent = formatCurrency(amount);
+                }
+            });
+
+            // Format dates
+            const dateSpans = document.querySelectorAll('.date-span');
+            dateSpans.forEach(function(span) {
+                span.textContent = formatDate(span.textContent.trim());
+            });
+        };
+    </script>
 </head>
 <body>
 <%
-    // SỬA LỖI: Đọc từ REQUEST (khớp với Servlet)
-    StatsSupplier selectedSupplier = (StatsSupplier) session.getAttribute("selectedSupplier"); // Tên NCC vẫn lấy từ session (đã lưu từ trước)
-    List<ImportDetail> dsChiTiet = (List<ImportDetail>) request.getAttribute("dsChiTiet");
+    StatsSupplier selectedSupplier = (StatsSupplier) session.getAttribute("selectedSupplier");
+    List<ImportDetail> importDetails = (List<ImportDetail>) request.getAttribute("listImportDetail");
 
-    // SỬA LỖI CRASH: Kiểm tra null an toàn
-    Integer idLannhapObj = (Integer) request.getAttribute("idLannhap");
-    int idLannhap = (idLannhapObj != null) ? idLannhapObj : 0;
+    Integer importIdObj = (Integer) request.getAttribute("idLannhap");
+    int importId = (importIdObj != null) ? importIdObj : 0;
+
+    String startDate = (String) request.getAttribute("startDate");
+    String endDate = (String) request.getAttribute("endDate");
 %>
 
-<h1>Thông Tin Lần Nhập</h1>
-<p><strong>Nhà Cung Cấp:</strong> <%= selectedSupplier != null ? selectedSupplier.getNameSupplier() : "Không xác định" %></p>
-<p><strong>ID Lần Nhập:</strong> <%= idLannhap %></p>
+<h1>Chi tiết hóa đơn nhập <%= importId %></h1>
+
+<!-- Import date display -->
+<div class="date-info">
+    <strong>Ngày nhập: </strong>
+    <%
+        // Get import date from session (set from previous page)
+        String importDate = "N/A";
+        Object importDateObj = session.getAttribute("importDate");
+        if (importDateObj != null) {
+            importDate = importDateObj.toString();
+        }
+    %>
+    <span style="color: #1976D2;" class="date-span">
+        <%= importDate %>
+    </span>
+</div>
+
+<!-- Supplier information -->
+<div class="supplier-info">
+    Nhà Cung Cấp:
+    <%= selectedSupplier != null ? selectedSupplier.getNameSupplier() : "Không xác định" %>
+</div>
 
 <table>
     <thead>
     <tr>
-        <th>ID Chi Tiết</th> <th>Tên Phụ Tùng</th>
+        <th >Mã phụ tùng</th>
+        <th>Tên phụ tùng</th>
         <th>Số Lượng</th>
-        <th>Tổng Tiền</th>
+        <th >Tổng Tiền</th>
     </tr>
     </thead>
     <tbody>
     <%
-        if (dsChiTiet != null && !dsChiTiet.isEmpty()) {
-            for (ImportDetail chiTiet : dsChiTiet) {
+        long totalQuantity = 0;
+        long totalAmount = 0;
+
+        if (importDetails != null && !importDetails.isEmpty()) {
+            for (ImportDetail detail : importDetails) {
+                totalQuantity += detail.getQuantity();
+                totalAmount += detail.getTotalAmount();
     %>
     <tr>
-        <td><%= chiTiet.getId() %></td>
-        <td><%= chiTiet.getNameSparePart() %></td>
-        <td><%= chiTiet.getQuantity() %></td>
-        <td><%= chiTiet.getTotalAmount() %></td>
+        <td style="text-align: center;"><%= detail.getId() %></td>
+        <td><%= detail.getNameSparePart() %></td>
+        <td style="text-align: center;"><%= detail.getQuantity() %></td>
+        <td style="text-align: right;" class="currency"><%= detail.getTotalAmount() %></td>
     </tr>
     <%
-        }
-    } else {
+            }
+        } else {
     %>
     <tr><td colspan="4" style="text-align:center;">Không có dữ liệu phụ tùng cho lần nhập này</td></tr>
-    <% } %>
+    <%
+        }
+    %>
     </tbody>
+
+    <!-- Total row -->
+    <% if (importDetails != null && !importDetails.isEmpty()) { %>
+    <tfoot>
+    <tr style="background-color: #1976D2; color: white; font-weight: bold; border-top: 3px solid #0D47A1;">
+        <td style="text-align: center; font-size: 16px;" colspan="2">TỔNG CỘNG</td>
+        <td style="text-align: center; font-size: 16px;"><%= totalQuantity %></td>
+        <td style="text-align: right; font-size: 16px;" class="currency"><%= totalAmount %></td>
+    </tr>
+    </tfoot>
+    <% } %>
 </table>
 
 <a href="javascript:history.back()" class="btn-back">Quay Lại</a>

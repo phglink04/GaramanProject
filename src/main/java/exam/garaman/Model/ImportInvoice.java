@@ -27,8 +27,8 @@ public class ImportInvoice {
     public void setId(int id) { this.id = id; }
     public Date getTime() { return time; }
     public void setTime(Date time) { this.time = time; }
-    public double getTotal() { return totalAmount; }
-    public void setTotal(int totalAmount) { this.totalAmount = totalAmount; }
+    public int getTotalAmount() { return totalAmount; }
+    public void setTotalAmount(int totalAmount) { this.totalAmount = totalAmount; }
     public int getWarehouseStaffId() { return WarehouseStaffId; }
     public void setWarehouseStaffId(int warehouseStaffId) { WarehouseStaffId = warehouseStaffId; }
     public int getSupplierId() { return SupplierId; }

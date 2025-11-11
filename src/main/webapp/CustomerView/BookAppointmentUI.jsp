@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #FAF3E0; /* Light, warm background color */
+            background-color: #E3F2FD; /* Light blue background */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -22,7 +22,7 @@
         .container {
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 100%;
             max-width: 400px;
@@ -31,10 +31,10 @@
 
         /* Title styling */
         h1 {
-            color: #BF360C; /* Rich color */
+            color: #1A237E; /* Dark blue for branding */
             font-size: 24px;
             margin-bottom: 20px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         /* Input styling */
@@ -42,8 +42,22 @@
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #dddddd;
+            border: 1px solid #90CAF9; /* Light blue border */
             border-radius: 6px;
+            background-color: #E3F2FD; /* Light blue for inputs */
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Label styling */
+        label {
+            font-size: 15px;
+            color: #0D47A1; /* Deep blue for labels */
+            display: block;
+            text-align: left;
+            margin-bottom: 6px;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         /* Button styling */
@@ -51,7 +65,7 @@
             padding: 12px;
             font-size: 16px;
             color: #ffffff;
-            background-color: #D84315;
+            background-color: #1976D2; /* Vibrant blue for button */
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -63,7 +77,7 @@
 
         /* Hover effect for buttons */
         .btn:hover {
-            background-color: #BF360C;
+            background-color: #1565C0; /* Slightly darker blue on hover */
         }
     </style>
 </head>

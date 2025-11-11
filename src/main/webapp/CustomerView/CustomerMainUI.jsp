@@ -9,20 +9,20 @@
     <style>
         /* General styling for the body */
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #FAF3E0; /* Light, warm background color */
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #E3F2FD; /* Light blue background */
         }
-
         /* Container styling */
+
         .container {
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 100%;
             max-width: 400px;
@@ -31,10 +31,10 @@
 
         /* Title styling */
         h1 {
-            color: #BF360C; /* Rich color */
+            color: #1A237E; /* Dark blue for branding */
             font-size: 24px;
             margin-bottom: 20px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         /* Button styling */
@@ -42,7 +42,7 @@
             padding: 12px;
             font-size: 16px;
             color: #ffffff;
-            background-color: #D84315;
+            background-color: #1976D2; /* Vibrant blue for button */
             border: none;
             border-radius: 6px;
             cursor: pointer;
@@ -54,7 +54,38 @@
 
         /* Hover effect for buttons */
         .btn:hover {
-            background-color: #BF360C;
+            background-color: #1565C0; /* Slightly darker blue on hover */
+        }
+
+        /* Form styling to center forms */
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        form:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Logout button styling */
+        .btn-logout {
+            padding: 12px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #42A5F5;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        /* Hover effect for logout button */
+        .btn-logout:hover {
+            background-color: #1565C0;
         }
     </style>
 </head>
@@ -74,6 +105,11 @@
 
     <form action="${pageContext.request.contextPath}/appointment" method="get">
         <button type="submit" class="btn">Đặt lịch hẹn</button>
+    </form>
+
+    <!-- Logout form -->
+    <form action="${pageContext.request.contextPath}/login" method="post">
+        <button type="submit" class="btn-logout">Đăng xuất</button>
     </form>
 </div>
 </body>

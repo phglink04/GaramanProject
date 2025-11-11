@@ -9,6 +9,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 // import jakarta.servlet.http.HttpSession; // Không cần Session ở đây
 
 import java.io.IOException;
@@ -25,19 +26,23 @@ public class ImportDetailServlet extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8"); // Gửi response
         response.setCharacterEncoding("UTF-8"); // Gửi response
 
+        HttpSession session = request.getSession();
+
         String idLannhapStr = request.getParameter("idLannhap");
+        String importDateStr = request.getParameter("importDate");
 
         if (idLannhapStr != null && !idLannhapStr.isEmpty()) {
             try {
                 int idLannhap = Integer.parseInt(idLannhapStr);
                 ImportInvoiceDAO dao = new ImportInvoiceDAO();
-                List<ImportDetail> dsChiTiet = null;
+                List<ImportDetail> listImportDetail = null;
 
-                dsChiTiet = dao.getImportDetails(idLannhap);
+                listImportDetail = dao.getImportDetails(idLannhap);
 
-                // Dùng REQUEST thay vì SESSION
-                request.setAttribute("dsChiTiet", dsChiTiet);
+                request.setAttribute("listImportDetail", listImportDetail);
                 request.setAttribute("idLannhap", idLannhap); // Gửi id qua request
+                session.setAttribute("importDate", importDateStr);
+
 
                 RequestDispatcher rd = request.getRequestDispatcher("/ManagerView/ImportDetailUI.jsp");
                 rd.forward(request, response);

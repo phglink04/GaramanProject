@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #FAF3E0;
+            background-color: #E3F2FD; /* Light blue background */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -20,7 +20,7 @@
         .container {
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 100%;
             max-width: 400px;
@@ -28,41 +28,79 @@
         }
 
         h1 {
-            color: #BF360C;
+            color: #1A237E; /* Dark blue for branding */
             font-size: 24px;
             margin-bottom: 20px;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         input[type="date"] {
             width: 100%;
             padding: 10px;
             margin: 10px 0;
-            border: 1px solid #dddddd;
+            border: 1px solid #90CAF9; /* Light blue border */
             border-radius: 6px;
+            background-color: #E3F2FD; /* Light blue for inputs */
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        /* Label styling */
+        label {
+            font-size: 15px;
+            color: #0D47A1; /* Deep blue for labels */
+            display: block;
+            text-align: left;
+            margin-bottom: 6px;
+            margin-top: 10px;
+            font-weight: bold;
         }
 
         .btn {
             padding: 12px;
             font-size: 16px;
             color: #ffffff;
-            background-color: #D84315;
+            background-color: #1976D2; /* Vibrant blue for button */
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             margin-top: 10px;
             width: 100%;
+            box-sizing: border-box;
         }
 
         .btn:hover {
-            background-color: #BF360C;
+            background-color: #1565C0; /* Slightly darker blue on hover */
         }
 
         .error-message {
             color: red;
             font-size: 14px;
             margin-top: 10px;
+        }
+
+        /* Back button styling */
+        .btn-back {
+            padding: 12px;
+            font-size: 16px;
+            color: #ffffff;
+            background-color: #42A5F5; /* Lighter blue */
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            width: 100%;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .btn-back:hover {
+            background-color: #1976D2; /* Darker blue on hover */
         }
     </style>
     <script>
@@ -85,24 +123,24 @@
 </head>
 <body>
 <div class="container">
-    <h1>Chọn Ngày Giờ</h1>
+    <h1>CHỌN NGÀY GIỜ</h1>
 
     <!-- Form gửi đến Servlet -->
     <form action="${pageContext.request.contextPath}/statsSupplier" method="post" onsubmit="return validateDates()">
-        <label for="start-date">Chọn Ngày Bắt Đầu:</label>
+        <label for="start-date">Chọn ngày bắt đầu:</label>
         <input type="date" id="start-date" name="startDate" required>
 
-        <label for="end-date">Chọn Ngày Kết Thúc:</label>
+        <label for="end-date">Chọn ngày kết thúc:</label>
         <input type="date" id="end-date" name="endDate" required>
 
-        <button type="submit" class="btn">Tiếp Tục</button>
+        <button type="submit" class="btn">Tiếp tục</button>
         <p id="error-message" class="error-message" style="${empty errorMessage ? 'display:none;' : ''}">
             ${errorMessage}
         </p>
     </form>
 
     <!-- Nút quay lại -->
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn-back">Quay Lại</a>
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn-back">Quay lại</a>
 </div>
 </body>
 </html>

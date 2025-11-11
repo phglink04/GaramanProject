@@ -20,8 +20,8 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #FAF3E0; /* Light, warm background color */
+            font-family: Arial, sans-serif;
+            background-color: #E3F2FD; /* Light blue background */
             padding: 20px;
             line-height: 1.6;
         }
@@ -30,7 +30,7 @@
         .container {
             background: #ffffff;
             border-radius: 12px;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
             padding: 40px;
             width: 100%;
             max-width: 450px;
@@ -39,11 +39,10 @@
 
         /* Header styling */
         h1 {
-            color: #BF360C; /* Rich, warm color */
+            color: #1A237E; /* Dark blue for branding */
             font-size: 28px;
             margin-bottom: 30px;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-weight: 700;
         }
 
         /* Button styling */
@@ -52,7 +51,7 @@
             padding: 15px 20px;
             font-size: 16px;
             color: #ffffff;
-            background-color: #D84315;
+            background-color: #1976D2; /* Vibrant blue for button */
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -62,13 +61,13 @@
             width: 100%;
             text-decoration: none;
             text-align: center;
-            font-family: inherit;
+            font-family: Arial, sans-serif;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         /* Hover effect for buttons */
         .btn:hover {
-            background-color: #BF360C;
+            background-color: #1565C0; /* Slightly darker blue on hover */
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         }
@@ -80,13 +79,13 @@
 
         /* Separate styling for back button */
         .btn-back {
-            background-color: #8D6E63; /* Muted brown color */
+            background-color: #42A5F5; /* Lighter blue color */
             margin-top: 20px;
         }
 
         /* Hover effect for back button */
         .btn-back:hover {
-            background-color: #6D4C41;
+            background-color: #1976D2;
         }
 
         /* Responsive design */
@@ -111,24 +110,13 @@
 <body>
 <div class="container">
     <!-- Page title -->
-    <h1>🏢 Giao Diện Chính Nhân Viên Quản Lý</h1>
+    <h1>GIAO DIỆN CHÍNH<br>NHÂN VIÊN QUẢN LÝ</h1>
 
     <!-- Buttons for management functions -->
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        📊 Xem Thống Kê
-    </a>
-
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        🛠️ Quản Lý Dịch Vụ
-    </a>
-
-    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">
-        🔧 Quản Lý Phụ Tùng
-    </a>
-
-    <a href="${pageContext.request.contextPath}/Login.jsp" class="btn btn-back">
-        🚪 Đăng xuất
-    </a>
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">Xem Thống Kê</a>
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">Quản Lý Dịch Vụ</a>
+    <a href="${pageContext.request.contextPath}/ManagerView/SelectStatsUI.jsp" class="btn">Quản Lý Phụ Tùng</a>
+    <a href="${pageContext.request.contextPath}/Login.jsp" class="btn btn-back">Đăng xuất</a>
 </div>
 </body>
 </html>

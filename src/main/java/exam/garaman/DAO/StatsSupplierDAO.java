@@ -23,28 +23,24 @@ public class StatsSupplierDAO extends DAO {
     public List<StatsSupplier> getSupplierListByImport(Date startDate, Date endDate) throws SQLException {
         List<StatsSupplier> resultList = new ArrayList<>();
 
-        // Câu SQL tối ưu:
-        // 1. Lấy TẤT CẢ nhà cung cấp (tblSupplier)
-        // 2. LEFT JOIN với hóa đơn (ipi) TRONG KHOẢNG THỜI GIAN
-        // 3. LEFT JOIN với chi tiết (imd)
-        // 4. COALESCE dùng để biến NULL thành 0 (cho nhà cung cấp không có hàng)
+
         String optimizedQuery = """
             SELECT
                 sup.id,
                 sup.name,
-                COALESCE(SUM(imd.quantity), 0) AS totalQuantity,
-                COALESCE(SUM(imd.totalAmount), 0) AS totalAmount
+                SUM(imd.quantity) AS totalQuantity,
+                SUM(imd.totalAmount) AS totalAmount
             FROM
                 tblSupplier AS sup
-            LEFT JOIN
+            JOIN
                 tblImportInvoice AS ipi ON sup.id = ipi.tblSupplierid
                 AND ipi.time BETWEEN ? AND ?
-            LEFT JOIN
+            JOIN
                 tblImportDetail AS imd ON ipi.id = imd.tblImportInvoiceid
             GROUP BY
                 sup.id, sup.name
             ORDER BY
-                totalAmount DESC
+                totalQuantity DESC
         """;
 
         // Chỉ cần 1 khối try-with-resources
